@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'diocar_app/person_list.css' %}">
+    <title>Person List</title>
+</head>
+
+<body>
+    <script src="{% static 'diocar_app/filter_table.js' %}"></script>
+    <h1>Person List</h1>
+    <a href="{% url 'person_new' %}">Add Person</a>
+
+    <!-- Search form -->
+    <input type="text" id="searchInput" placeholder="Search..." oninput="filterTable()">
+
+    <table border="1" id="peopleTable">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Passport ID</th>
+            <th>Actions</th>
+        </tr>
+        {% for person in people %}
+        <tr class="personRow">
+            <td>{{ person.first_name }}</td>
+            <td>{{ person.last_name }}</td>
+            <td>{{ person.passport_id }}</td>
+            <td>
+                <a href="{% url 'person_edit' person.pk %}">Edit</a>
+                <a href="{% url 'person_delete' person.pk %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>

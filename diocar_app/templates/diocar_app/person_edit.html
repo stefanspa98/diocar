@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'diocar_app/person_edit.css' %}">
+    <title>{% if person %}Edit Person{% else %}New Person{% endif %}</title>
+</head>
+
+<body>
+    <h1>{% if person %}Edit Person{% else %}New Person{% endif %}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save-button">Save</button>
+    </form>
+</body>
+
+</html>
