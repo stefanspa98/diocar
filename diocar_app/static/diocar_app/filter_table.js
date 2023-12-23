@@ -1,3 +1,4 @@
+// function for live searching data from the table based on input from the user
 function filterTable() {
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("searchInput");

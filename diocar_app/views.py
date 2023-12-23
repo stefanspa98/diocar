@@ -3,16 +3,12 @@ from .models import Person
 from .forms import PersonForm
 from django.db.models import Q
 
+# function for listing all objects from Person
 def person_list(request):
-    query = request.GET.get('q','')
     people = Person.objects.all()
-    if query:
-        people = Person.objects.filter(
-            Q(first_name__icontains=query) | Q(last_name__icontains=query) | Q(passport_id__icontains=query)
-        )
-    return render(request, 'diocar_app/person_list.html', {'people': people, 'query': query})
+    return render(request, 'diocar_app/person_list.html', {'people': people})
 
-
+# function for creating a new person (post request)
 def person_new(request):
     if request.method == "POST":
         form = PersonForm(request.POST)
@@ -24,6 +20,7 @@ def person_new(request):
         form = PersonForm()
     return render(request, 'diocar_app/person_edit.html', {'form': form})
 
+# function for editing the existing person (post request)
 def person_edit(request, pk):
     person = get_object_or_404(Person, pk=pk)
     if request.method == "POST":
@@ -36,6 +33,7 @@ def person_edit(request, pk):
         form = PersonForm(instance=person)
     return render(request, 'diocar_app/person_edit.html', {'form': form, 'person': person})
 
+# function for deleting person from list
 def person_delete(request, pk):
     person = get_object_or_404(Person, pk=pk)
     person.delete()
